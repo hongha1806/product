@@ -16,7 +16,6 @@
         </div>
     </div>
 </div>
-
 <div class="ds">
 <a href="index.php?controller=list&action=add">Add product</a>
     <h3>List product</h3>
@@ -26,6 +25,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Brand</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -37,6 +37,7 @@
                             <td>{$product['id']}</td>
                             <td>{$product['name']}</td>
                             <td>{$product['price']}</td>
+                            <td>{$product['brands_name']}</td>
                             <td>
                                 <a href='index.php?controller=list&action=edit&id={$product['id']}'>Edit</a> | 
                                 <a onclick='return confirm(\"Bạn có chắc chắn muốn xóa không?\")' href='index.php?controller=list&action=delete&id={$product['id']}'>Delete</a>
@@ -44,7 +45,7 @@
                         </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No products found</td></tr>";
+                    echo "<tr><td colspan='5'>No products found</td></tr>";
                 }
             ?>
         </tbody>
@@ -58,7 +59,6 @@
             }
         ?>
     </div>
-
 </div>
 
 

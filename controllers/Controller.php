@@ -20,11 +20,13 @@
 
     switch($action){
         case 'add': {
+            $brands = $db->getAllBrands(); // Fetch brands from database
             if(isset($_POST['add_product'])){
                 $name = $_POST['name'];
                 $price = $_POST['price'];
-                if($db->insertData($name, $price)){
-                   $thanhcong[] = 'add_success';
+                $id_brand = $_POST['id_brand'];
+                if($db->insertData($name, $price, $id_brand)){
+                    $thanhcong[] = 'add_success';
                 }
             }
             require_once('views/create.php');
@@ -35,18 +37,22 @@
                 $id = $_GET['id'];
                 $tblTable = "products";
                 $dataID = $db->getDataID($tblTable, $id);
+                $brands = $db->getAllBrands();
                 if(isset($_POST['update_product'])){
                     $name = $_POST['name'];
                     $price = $_POST['price'];
-                    if($db->updateData($id, $name, $price)){
-                        header('location: index.php?controller=list&action=list');
+                    $id_brand = $_POST['id_brand'];
+                    
+                    if($db->updateData($id, $name, $price, $id_brand)){
+                        $thanhcong[] = 'update_success';
+                        $dataID = $db->getDataID($tblTable, $id);
                     }
                 }
-            }
-            
+            }   
             require_once('views/edit.php');
             break;
         }
+        
         case 'delete': {
             if(isset($_GET['id'])){
                 $id = $_GET['id'];

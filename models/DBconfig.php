@@ -35,7 +35,7 @@ class Database {
     }
 
     public function getAllData($table){
-        $sql = "SELECT * FROM $table";
+        $sql = "SELECT products.*, brands.name as brands_name FROM products JOIN brands ON products.id_brand = brands.id ORDER BY products.id";
         $this->execute($sql);
         if($this->num_rows() > 0){
             while ($datas = $this->getData()) {
@@ -46,9 +46,11 @@ class Database {
         }
         return $data;
     }
+    
+    
 
     public function getDataID($table, $id){
-        $sql = "SELECT * FROM $table WHERE id = '$id'";
+        $sql = "SELECT products.*, brands.name as brands_name FROM products JOIN brands ON products.id_brand = brands.id WHERE products.id = '$id'";
         $this->execute($sql);
         if($this->num_rows() > 0){
             $data = mysqli_fetch_array($this->result);
@@ -57,6 +59,7 @@ class Database {
         }
         return $data;
     }
+    
 
     public function num_rows(){
         if($this->result){
@@ -67,15 +70,31 @@ class Database {
         return $num;
     }
 
+    // lấy danh sáchh brand
+    public function getAllBrands(){
+        $sql = "SELECT * FROM brands ORDER BY name";
+        $this->execute($sql);
+        $data = [];
+        if($this->num_rows() > 0){
+            while ($datas = $this->getData()) {
+                $data[] = $datas;
+            }
+        } else {
+            $data = 0;
+        }
+        return $data;
+    }
+    
+
     // thêm mới
-    public function insertData($name, $price){
-        $sql = "INSERT INTO products(id, name, price) VALUES(null, '$name', '$price')";
+    public function insertData($name, $price, $id_brand){
+        $sql = "INSERT INTO products(id, name, price, id_brand) VALUES(null, '$name', '$price', '$id_brand')";
         return $this->execute($sql);
     }
 
     // chỉnh sửa
-    public function updateData($id, $name, $price){
-        $sql = "UPDATE products SET name = '$name', price = '$price' WHERE id = '$id'";
+    public function updateData($id, $name, $price, $id_brand){
+        $sql = "UPDATE products SET name = '$name', price = '$price', id_brand = '$id_brand' WHERE id = '$id'";
         return $this->execute($sql);
     }
 
@@ -87,21 +106,16 @@ class Database {
 
     //tìm kiếm 
     public function searchData($table, $key, $price = null, $limit, $offset) {
-        $sql = "SELECT * FROM $table WHERE 1";
-        
+        $sql = "SELECT products.*, brands.name as brands_name FROM products JOIN brands ON products.id_brand = brands.id";
         if (!empty($key)) {
-            $sql .= " AND name LIKE '%$key%'";
+            $sql .= " AND products.name LIKE '%$key%'";
         }
-        
         if (!empty($price)) {
-            $sql .= " AND price < $price";
+            $sql .= " AND products.price < $price";
         }
-        
-        $sql .= " ORDER BY id DESC LIMIT $limit OFFSET $offset";
-        
+        $sql .= " ORDER BY products.id LIMIT $limit OFFSET $offset";
         $this->execute($sql);
         $data = [];
-        
         if ($this->num_rows() > 0) {
             while ($datas = $this->getData()) {
                 $data[] = $datas;
@@ -109,10 +123,9 @@ class Database {
         } else {
             $data = null;
         }
-        
         return $data;
     }
-    
+    //phân trang tìm kiếm
     public function getTotalSearchRows($table, $key, $price = null) {
         $sql = "SELECT COUNT(*) as count FROM $table WHERE 1";
         
@@ -137,7 +150,7 @@ class Database {
     
     //phân trang list product
     public function getPaginatedData($table, $limit, $offset) {
-        $sql = "SELECT * FROM $table LIMIT $limit OFFSET $offset";
+        $sql = "SELECT products.*, brands.name as brands_name FROM products JOIN brands ON products.id_brand = brands.id ORDER BY products.id LIMIT $limit OFFSET $offset";
         $this->execute($sql);
         $data = [];
         if($this->num_rows() > 0){
@@ -149,6 +162,8 @@ class Database {
         }
         return $data;
     }
+    
+    
 
     public function getTotalRows($table) {
         $sql = "SELECT COUNT(*) as count FROM $table";

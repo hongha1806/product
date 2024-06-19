@@ -21,6 +21,20 @@
                         <td><input type="text" name="price" placeholder="Price"></td>
                     </tr>
                     <tr>
+                        <td>Brand:</td>
+                       <td>
+                            <select name="id_brand">
+                                <?php
+                                    if ($brands && is_array($brands)) {
+                                        foreach ($brands as $brand) {
+                                            echo "<option value='{$brand['id']}'>{$brand['name']}</option>";
+                                        }
+                                    }
+                                ?>
+                            </select>
+                       </td>
+                    </tr>
+                    <tr>
                         <td>&nbsp;</td>
                         <td><input type="submit" name="add_product" value="ADD"></td>
                     </tr>

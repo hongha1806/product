@@ -18,8 +18,23 @@
                         <td><input type="text" name="name" value="<?php echo $dataID['name']; ?>"></td>
                     </tr>
                     <tr>
-                        <td>Price:</td>
+                        <td>Price: </td>
                         <td><input type="text" name="price" value="<?php echo $dataID['price']; ?>"></td>
+                    </tr>
+                    <tr>
+                        <td>Brand: </td>
+                        <td>
+                            <select name="id_brand">
+                                <?php
+                                    if ($brands && is_array($brands)) {
+                                        foreach ($brands as $brand) {
+                                            $selected = ($brand['id'] == $dataID['id_brand']) ? 'selected' : '';
+                                            echo "<option value='{$brand['id']}' $selected>{$brand['name']}</option>";
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -28,8 +43,8 @@
                 </table>
             </form>
             <?php
-                if(isset($thanhcong) && in_array('add_success', $thanhcong)){
-                    echo "<p style='color: green; text-align:center'>TChinh sua product thanh cong</p>";
+                if(isset($thanhcong) && in_array('update_success', $thanhcong)){
+                    echo "<p style='color: green; text-align:center'>Chỉnh sửa product thành công</p>";
                 }
              ?>
         </div>
