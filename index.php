@@ -1,54 +1,4 @@
-<!-- index.php -->
-<?php
-// $controller = isset($_GET['controller']) ? $_GET['controller'] : 'Product';
-// $action = isset($_GET['action']) ? $_GET['action'] : 'productList';
 
-// require_once "controllers/${controller}Controller.php";
-
-// $controllerClassName = "${controller}Controller";
-// $controllerObj = new $controllerClassName();
-
-// $controllerObj->$action();
-
-// require_once 'models/ProductModel.php';
-// require_once 'controllers/ProductController.php';
-
-// // Kết nối đến CSDL (ví dụ MySQL)
-// $db = new PDO('mysql:host=localhost;dbname=mvc_app', 'root', '');
-// $productModel = new ProductModel($db);
-// $productController = new ProductController($productModel);
-// $productController->listProducts();
-
-// ?><?php
-// require_once 'models/ProductModel.php';
-// require_once 'controllers/ProductController.php';
-
-// // Kết nối đến CSDL (ví dụ MySQL)
-// try {
-//     $db = new PDO('mysql:host=localhost;dbname=mvc_app', 'root', '');
-//     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// } catch (PDOException $e) {
-//     echo "Connection failed: " . $e->getMessage();
-//     exit;
-// }
-
-// $productModel = new ProductModel($db);
-// $productController = new ProductController($productModel);
-
-// $action = isset($_GET['action']) ? $_GET['action'] : 'listProducts';
-
-// switch ($action) {
-//     case 'listProducts':
-//         $productController->listProducts();
-//         break;
-//     case 'createProduct':
-//         $productController->createProduct();
-//         break;
-//     default:
-//         echo "Action not recognized.";
-//         break;
-// }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>List Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+    <script>
+       $(document).ready(function() {
+            var slider = new Slider('#price-range-slider', {
+                tooltip: 'hide', // Hide the tooltip completely
+            });
+
+            slider.on('slide', function(sliderValue) {
+                $('#min_price').text(sliderValue[0]);
+                $('#max_price').text(sliderValue[1]);
+            });
+
+            slider.on('slideStop', function(sliderValue) {
+                $('#min_price').text(sliderValue[0]);
+                $('#max_price').text(sliderValue[1]);
+            });
+        });
+
+    </script>
 </head>
 <body>
     

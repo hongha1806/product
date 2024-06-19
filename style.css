@@ -21,7 +21,7 @@
 .addproduct form table tr td{
     padding: 5px;
 }
-.addproduct form table tr tb input{
+.addproduct form table tr td input{
     padding: 3 px 5px;
 }
 .list{
@@ -45,8 +45,25 @@
     text-align: center;
     padding: 5px;
 }
-#tk{
+#tk {
     width: 500px;
     margin: auto;
-    margin-top:  50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 150px;
+}
+
+#search-name {
+    width: 300px;
+}
+
+.tk h4 form table tr td{
+    padding: 5px;
+}
+.tk h4 form table tr td input{
+    padding: 5px 5px;
+}
+.anhproduct{
+    width: 100px;
+    height: 70px;
 }

@@ -1,17 +1,24 @@
 <div id="tk">
-    <form action="" method="GET">
-        <table>
-            <tr>
-                <input type="hidden" name="controller" value="list">
-                <td><input type="text" name="tukhoa" placeholder="Search"></td>
-                <td><input type="submit" value="Search"></td>
-            </tr>
-        </table>
-        <input type="hidden" name="action" value="search">
-    </form>
+    <h4>Search</h4>
+    <div class="price-range">
+        <div class="well text-center">
+            <form action="" method="GET">
+                <table>
+                    <tr>
+                        <input type="hidden" name="controller" value="list">
+                        <td><input type="text" name="tukhoa" placeholder="Search by name"></td>
+                        <td><<input type="text" name="gia" placeholder="Price"></td>
+                        <td><input type="submit" value="Search"></td>
+                    </tr>
+                </table>
+                <input type="hidden" name="action" value="search">
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="ds">
+<a href="index.php?controller=list&action=add">Add product</a>
     <h3>List product</h3>
     <table border="1px">
         <thead>
@@ -24,7 +31,7 @@
         </thead>
         <tbody>
             <?php
-                 if ($data && is_array($data)) {
+                if ($data && is_array($data)) {
                     foreach ($data as $product) {
                         echo "<tr>
                             <td>{$product['id']}</td>
@@ -34,18 +41,26 @@
                                 <a href='index.php?controller=list&action=edit&id={$product['id']}'>Edit</a> | 
                                 <a onclick='return confirm(\"Bạn có chắc chắn muốn xóa không?\")' href='index.php?controller=list&action=delete&id={$product['id']}'>Delete</a>
                             </td>
-
                         </tr>";
                     }
                 } else {
                     echo "<tr><td colspan='4'>No products found</td></tr>";
                 }
             ?>
-            
         </tbody>
     </table>
-    <a href="index.php?controller=list&action=add">Add product</a>
+    <div class="pagination">
+        <?php
+            if ($totalPages > 1) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo "<a href='index.php?controller=list&action=list&page=$i'>$i</a> ";
+                }
+            }
+        ?>
+    </div>
+
 </div>
+
 
 
 

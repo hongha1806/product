@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
-</head>
-<body>
-<div id="tk">
-    <form action="" method="GET">
-        <table>
-            <tr>
-                <input type="hidden" name="controller" value="list">
-                <td><input type="text" name="tukhoa" placeholder="Search"></td>
-                <td><input type="submit" value="Search"></td>
-            </tr>
-        </table>
-        <input type="hidden" name="action" value="search">
-    </form>
-</div>
-    <div class="ds">
-    <a href="index.php?controller=list&action=product-list" class="list">List product</a>
+
+<div class="ds">
+<a href="index.php?controller=list&action=product-list" class="list">List product</a>
     <h3>Search Results</h3>
     <table border="1px">
         <thead>
@@ -39,7 +21,7 @@
                             <td>{$product['price']}</td>
                             <td>
                                 <a href='index.php?controller=list&action=edit&id={$product['id']}'>Edit</a> | 
-                                <a onclick=\"return confirm('Bạn có chắc chắn muốn xóa không?')\" href='index.php?controller=list&action=delete&id={$product['id']}'>Delete</a>
+                                <a onclick='return confirm(\"Bạn có chắc chắn muốn xóa không?\")' href='index.php?controller=list&action=delete&id={$product['id']}'>Delete</a>
                             </td>
                         </tr>";
                     }
@@ -49,6 +31,14 @@
             ?>
         </tbody>
     </table>
+    <div class="pagination">
+        <?php
+            if ($totalPages > 1) {
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo "<a href='index.php?controller=list&action=search&tukhoa={$key}&page=$i'>$i</a> ";
+                }
+            }
+        ?>
     </div>
-</body>
-</html>
+</div>
+

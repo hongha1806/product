@@ -1,5 +1,14 @@
 <?php
-    
+    // Số sản phẩm mỗi trang
+    $limit = 5;
+
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+
+    $offset = ($page - 1) * $limit;
 
     if(isset($_GET['action'])){
         $action = $_GET['action'];
@@ -14,7 +23,6 @@
             if(isset($_POST['add_product'])){
                 $name = $_POST['name'];
                 $price = $_POST['price'];
-
                 if($db->insertData($name, $price)){
                    $thanhcong[] = 'add_success';
                 }
@@ -49,32 +57,33 @@
             }else{
                 header('location: index.php?controller=list&action=list');
             }
-            //require_once('views/delete.php');
             break;
         }
         case 'list':{
-            $tblTable= "products";
-            $data = $db->getAllData($tblTable);
+            $tblTable = "products";
+            $data = $db->getPaginatedData($tblTable, $limit, $offset);
+            $totalRows = $db->getTotalRows($tblTable);
+            $totalPages = ceil($totalRows / $limit);
             require_once('views/product-list.php');
             break;
         }
-        case 'search':{
-            if(isset($_GET['tukhoa'])){
-                $tukhoa = $_GET['tukhoa'];
-                $tblTable = "products";
-
-                $dataSearch =$db->searchData($tblTable, $tukhoa);
-            }
-            require_once('views/search.php');
+        case 'search': {
+            $tblTable = 'products';
+            $key = isset($_GET['tukhoa']) ? $_GET['tukhoa'] : '';
+            $price = isset($_GET['gia']) ? $_GET['gia'] : null;
+            $totalRows = $db->getTotalSearchRows($tblTable, $key, $price);
+            $totalPages = ceil($totalRows / $limit);
+            $dataSearch = $db->searchData($tblTable, $key, $price, $limit, $offset);
+            require_once 'views/search.php';
             break;
-        }
+            }      
         default:{
             $tblTable = "products";
-            $data = $db->getAllData($tblTable);
+            $data = $db->getPaginatedData($tblTable, $limit, $offset);
+            $totalRows = $db->getTotalRows($tblTable);
+            $totalPages = ceil($totalRows / $limit);
             require_once('views/product-list.php');
             break;
         }
     }
-
-    
 ?>
