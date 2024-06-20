@@ -7,7 +7,11 @@
                     <tr>
                         <input type="hidden" name="controller" value="list">
                         <td><input type="text" name="tukhoa" placeholder="Search by name"></td>
-                        <td><<input type="text" name="gia" placeholder="Price"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="gia" placeholder="Maximum price"></td>
+                    </tr>
+                    <tr>
                         <td><input type="submit" value="Search"></td>
                     </tr>
                 </table>

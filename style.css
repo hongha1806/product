@@ -59,9 +59,11 @@
 
 .tk h4 form table tr td{
     padding: 5px;
+    margin: 5px;
 }
 .tk h4 form table tr td input{
     padding: 5px 5px;
+    margin: 5px;
 }
 .anhproduct{
     width: 100px;

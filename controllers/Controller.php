@@ -52,7 +52,6 @@
             require_once('views/edit.php');
             break;
         }
-        
         case 'delete': {
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
